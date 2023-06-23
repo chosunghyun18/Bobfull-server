@@ -65,4 +65,7 @@ public class MemberService {
     public void replaceProfileByMemberId(Long memberId, MemberPutProfileDto memberPutProfileDto) {
         findByMemberId(memberId).changeProfile(memberPutProfileDto);
     }
+
+    @Transactional
+    public void modifyTokenByGivenToken(Long memberId, String fcm) { findByMemberId(memberId).modifyFcmToken(fcm); }
 }

@@ -102,4 +102,8 @@ public class Member extends BaseTimeEntity{
         this.badTaste += memberPostReviewDto.getBadTaste();
         this.funny += memberPostReviewDto.getFunny();
     }
+
+    public void modifyFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
 }

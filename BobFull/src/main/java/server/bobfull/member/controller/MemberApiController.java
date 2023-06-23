@@ -74,4 +74,15 @@ public class MemberApiController {
         }
         return ApiResponse.success(true);
     }
+
+    @PutMapping(produces = "application/json;charset=UTF-8")
+    public ApiResponse putFcmToken(@RequestHeader("Authorization") Long memberId,
+                                   @RequestParam("fcm") String fcm) {
+        try {
+            memberService.modifyTokenByGivenToken(memberId, fcm);
+        }catch (NoSuchElementException e) {
+            return ApiResponse.success(false);
+        }
+        return ApiResponse.success(true);
+    }
 }
