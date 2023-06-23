@@ -31,6 +31,7 @@ public class GatherService {
     @Transactional
     public GatherCreateResponse createGather(Long memberId,GatherCreateRequestDto requestDto) {
         Gather gather = new Gather(requestDto,memberService.findByMemberId(memberId));
+        gatherRepository.save(gather);
         return new GatherCreateResponse(gather);
     }
 
