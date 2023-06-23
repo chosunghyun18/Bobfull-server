@@ -7,9 +7,11 @@ import server.bobfull.member.domain.model.Member;
 import server.bobfull.member.dto.MemberDtos;
 import server.bobfull.member.dto.MemberDtos.MemberPostRequestDto;
 import server.bobfull.member.dto.MemberDtos.MemberPostReviewDto;
+import server.bobfull.member.dto.MemberDtos.MemberProfileDto;
 import server.bobfull.member.dto.MemberDtos.MemberPutProfileDto;
 import server.bobfull.member.infrastructure.MemberRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -73,4 +75,27 @@ public class MemberService {
 
     @Transactional
     public void modifyTokenByGivenToken(Long memberId, String fcm) { findByMemberId(memberId).modifyFcmToken(fcm); }
+
+
+    public MemberProfileDto findProfileByMemberId(Long memberId) {
+        List<String> rating = new ArrayList<>();
+        Member member = findByMemberId(memberId);
+        int[] values = new int[]{
+                member.getGood(),
+                member.getBad(),
+                member.getGoodTime(),
+                member.getBadTime(),
+                member.getGoodTaste(),
+                member.getBadTaste(),
+                member.getFunny()
+        };
+        String[] worlds = new String[] { "good", "bad", "goodTime", "badTime", "goodTaste", "badTaste", "funny"};
+        for(int i = 0; i < 7; i++) {
+            if(values[i] != 0){
+                rating.add(worlds[i]);
+            }
+        }
+
+        return new MemberProfileDto(member, rating);
+    }
 }

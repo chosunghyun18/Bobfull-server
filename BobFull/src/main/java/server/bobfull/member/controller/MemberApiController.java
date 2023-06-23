@@ -37,11 +37,21 @@ public class MemberApiController {
         return ApiResponse.success(responseList);
     }
 
-    @GetMapping(produces = "application/json;charset=UTF-8")
-    public ApiResponse getMemberById(@RequestHeader("Authorization") Long memberId) {
+    @GetMapping(value = "/profile", produces = "application/json;charset=UTF-8")
+    public ApiResponse getMemberProfileById(@RequestHeader("Authorization") Long memberId) {
         try {
             Member member = memberService.findByMemberId(memberId);
             return ApiResponse.success(new MemberResponseDto(member));
+        } catch(NoSuchElementException e) {
+            return ApiResponse.invaildToken(false);
+        }
+    }
+
+    @GetMapping(produces = "application/json;charset=UTF-8")
+    public ApiResponse getMemberById(@RequestHeader("Authorization") Long memberId) {
+        try {
+            MemberProfileDto member = memberService.findProfileByMemberId(memberId);
+            return ApiResponse.success(member);
         } catch(NoSuchElementException e) {
             return ApiResponse.invaildToken(false);
         }

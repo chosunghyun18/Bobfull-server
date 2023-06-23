@@ -6,10 +6,8 @@ import lombok.NoArgsConstructor;
 import server.bobfull.member.domain.model.Member;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -48,9 +46,12 @@ public class MemberDtos {
             this.sex = member.getSex();
             this.memberProfileUrl = member.getProfileUrl();
             this.studentNum = member.getStudentNum();
-            this.allergy = Stream.of(member.getAllergy()).collect(Collectors.toList());
-            this.favor = Stream.of(member.getFavor()).collect(Collectors.toList());
-            this.nonFavor = Stream.of(member.getNonFavor()).collect(Collectors.toList());
+            this.allergy = Arrays.asList(member.getAllergy()
+                    .replaceAll("[\\[\\]]", "").split(", "));
+            this.favor = Arrays.asList(member.getFavor()
+                    .replaceAll("[\\[\\]]", "").split(", "));
+            this.nonFavor = Arrays.asList(member.getNonFavor()
+                    .replaceAll("[\\[\\]]", "").split(", "));
             this.good = member.getGood();
             this.bad = member.getBad();
             this.goodTime = member.getGoodTime();
@@ -83,8 +84,17 @@ public class MemberDtos {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class MemberProfileDto {
         String nickName;
-        List<String> rating = new ArrayList<>();
-
-
+        int studentNum;
+        String sex;
+        List<String> rating;
+        List<String> favor;
+        public MemberProfileDto(Member member, List<String> rating) {
+            this.nickName = member.getNickName();
+            this.studentNum = member.getStudentNum();
+            this.sex = member.getSex();
+            this.rating = rating;
+            this.favor = Arrays.asList(member.getFavor()
+                    .replaceAll("[\\[\\]]", "").split(", "));
+        }
     }
 }
