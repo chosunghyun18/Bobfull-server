@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import server.bobfull.member.domain.model.Member;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberDtos {
@@ -23,10 +27,11 @@ public class MemberDtos {
         Long id;
         String nickName;
         String sex;
+        String memberProfileUrl;
         int studentNum;
-        String allergy;
-        String favor;
-        String nonFavor;
+        List<String> allergy;
+        List<String> favor;
+        List<String> nonFavor;
         int good;
         int bad;
         int goodTime;
@@ -39,10 +44,14 @@ public class MemberDtos {
             this.id = member.getId();
             this.nickName = member.getNickName();
             this.sex = member.getSex();
+            this.memberProfileUrl = member.getProfileUrl();
             this.studentNum = member.getStudentNum();
-            this.allergy = member.getAllergy();
-            this.favor = member.getFavor();
-            this.nonFavor = member.getNonFavor();
+            this.allergy = Arrays.asList(member.getAllergy()
+                    .replaceAll("[\\[\\]]", "").split(", "));
+            this.favor = Arrays.asList(member.getFavor()
+                    .replaceAll("[\\[\\]]", "").split(", "));
+            this.nonFavor = Arrays.asList(member.getNonFavor()
+                    .replaceAll("[\\[\\]]", "").split(", "));
             this.good = member.getGood();
             this.bad = member.getBad();
             this.goodTime = member.getGoodTime();
@@ -66,8 +75,26 @@ public class MemberDtos {
     @Data
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class MemberPutProfileDto {
-        String allergy;
-        String favor;
-        String nonFavor;
+        List<String> allergy;
+        List<String> favor;
+        List<String> nonFavor;
+    }
+
+    @Data
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class MemberProfileDto {
+        String nickName;
+        int studentNum;
+        String sex;
+        List<String> rating;
+        List<String> favor;
+        public MemberProfileDto(Member member, List<String> rating) {
+            this.nickName = member.getNickName();
+            this.studentNum = member.getStudentNum();
+            this.sex = member.getSex();
+            this.rating = rating;
+            this.favor = Arrays.asList(member.getFavor()
+                    .replaceAll("[\\[\\]]", "").split(", "));
+        }
     }
 }
