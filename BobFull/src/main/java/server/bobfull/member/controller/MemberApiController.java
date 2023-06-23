@@ -55,4 +55,11 @@ public class MemberApiController {
             return ApiResponse.invaildToken(false);
         }
     }
+
+    @PostMapping(value = "/review", produces = "application/json;charset=UTF-8")
+    public ApiResponse postReview(@RequestHeader("Authorization") Long memberId,
+                                  @RequestBody MemberPostReviewDto request) {
+        memberService.addReview(memberId, request);
+        return ApiResponse.success(true);
+    }
 }

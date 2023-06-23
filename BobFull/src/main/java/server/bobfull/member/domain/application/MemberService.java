@@ -4,11 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import server.bobfull.member.domain.model.Member;
+import server.bobfull.member.dto.MemberDtos;
 import server.bobfull.member.dto.MemberDtos.MemberPostRequestDto;
+import server.bobfull.member.dto.MemberDtos.MemberPostReviewDto;
 import server.bobfull.member.infrastructure.MemberRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 @Transactional(readOnly = true)
@@ -54,4 +57,7 @@ public class MemberService {
     public boolean isIdExist(Long memberId) {
         return memberRepository.findById(memberId).isPresent();
     }
+
+    @Transactional
+    public void addReview(Long memberId, MemberPostReviewDto request) { findByMemberId(memberId).addReview(request); }
 }

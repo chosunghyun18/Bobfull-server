@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import server.bobfull.member.dto.MemberDtos;
 import server.bobfull.member.dto.MemberDtos.MemberPostRequestDto;
+import server.bobfull.member.dto.MemberDtos.MemberPostReviewDto;
 
 
 @Setter
@@ -108,5 +109,15 @@ public class Member extends BaseTimeEntity{
                 .favor(memberPostRequestDto.getFavor())
                 .nonFavor(memberPostRequestDto.getNonFavor())
                 .build();
+    }
+
+    public void addReview(MemberPostReviewDto memberPostReviewDto) {
+        this.good += memberPostReviewDto.getGood();
+        this.bad += memberPostReviewDto.getBad();
+        this.goodTime += memberPostReviewDto.getGoodTime();
+        this.badTime += memberPostReviewDto.getBadTime();
+        this.goodTaste += memberPostReviewDto.getGoodTaste();
+        this.badTaste += memberPostReviewDto.getBadTaste();
+        this.funny += memberPostReviewDto.getFunny();
     }
 }
