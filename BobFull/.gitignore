@@ -44,3 +44,6 @@ src/main/resources/application-credentials.yml
 ### MAC OS ###
 *.DS_Store
 ~/*.DS_Store
+
+# Include this specific file
+!build/libs/BobFull.jar
