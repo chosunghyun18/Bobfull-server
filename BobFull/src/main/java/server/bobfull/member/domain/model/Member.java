@@ -79,10 +79,11 @@ public class Member extends BaseTimeEntity{
         this.studentNum = studentNum;
     }
 
-    public void changeProfile(MemberPutProfileDto memberPutProfileDto) {
+    public Member changeProfile(MemberPutProfileDto memberPutProfileDto) {
         this.allergy = memberPutProfileDto.getAllergy();
         this.favor = memberPutProfileDto.getFavor();
         this.nonFavor = memberPutProfileDto.getNonFavor();
+        return this;
     }
 
     public static Member create(MemberPostRequestDto memberPostRequestDto) {
