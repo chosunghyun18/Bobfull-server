@@ -52,8 +52,9 @@ public class GatherApiController {
     @GetMapping(value = "/proposal/confirm",produces = "application/json;charset=UTF-8")
     public ApiResponse<Boolean> checkConfirmGatherJoin(@RequestHeader("Authorization") Long memberId,
                                                       @RequestParam("confirmMemberId") Long confirmMemberId, // 상대방의 memberId
+                                                        @RequestParam("friendId") Long friendId,
                                                       @RequestParam("confirm") Boolean confirm) {   // 승낙 true
-        return ApiResponse.success(gatherService.proposalConfirm(memberId,confirm,confirmMemberId));
+        return ApiResponse.success(gatherService.proposalConfirm(memberId,confirm,confirmMemberId,friendId));
     }
 
 }

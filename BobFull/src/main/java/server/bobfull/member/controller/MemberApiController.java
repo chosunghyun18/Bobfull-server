@@ -46,7 +46,11 @@ public class MemberApiController {
             return ApiResponse.invaildToken(false);
         }
     }
-
+    @GetMapping(value = "/firend", produces = "application/json;charset=UTF-8")
+    public ApiResponse<List<FriendProfileDto>> getMemberFriendBymemberId(@RequestHeader("Authorization") Long memberId) {
+        List<FriendProfileDto> friends = memberService.findFriendsByMemberId(memberId);
+        return ApiResponse.success(friends);
+    }
     @GetMapping(produces = "application/json;charset=UTF-8")
     public ApiResponse getMemberById(@RequestHeader("Authorization") Long memberId) {
         try {

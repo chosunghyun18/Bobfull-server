@@ -61,8 +61,9 @@ public class GatherService {
     }
     // 밥약 참여하기
     public Boolean proposalJoin(Long memberId, Long gatherId) {
-        memberService.findByMemberId(memberId); // 요청자
+        Member friend = memberService.findByMemberId(memberId); // 요청자
         Gather gather = findByGatherId(gatherId);
+        memberService.saveFriend(gather.getMember(),friend.getNickName(),friend.getProfileUrl());
         try {
             fcmService.sendMessageTo(gather.getMember().getFcmToken(), "JOIN", memberId.toString());
             return true;
@@ -72,8 +73,9 @@ public class GatherService {
 
     }
 
-    public Boolean proposalConfirm(Long memberId, Boolean confirm,Long confirmMemberId) {
+    public Boolean proposalConfirm(Long memberId, Boolean confirm,Long confirmMemberId,Long friendId) {
         memberService.findByMemberId(memberId); // 승낙
+        memberService.deleteFriendById(friendId);
         Member requestedMember =memberService.findByMemberId(confirmMemberId);
         try {
         fcmService.sendMessageTo(requestedMember.getFcmToken(),"RESULT",confirm.toString());
