@@ -5,6 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import server.bobfull.member.domain.model.Member;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberDtos {
@@ -23,10 +29,11 @@ public class MemberDtos {
         Long id;
         String nickName;
         String sex;
+        String memberProfileUrl;
         int studentNum;
-        String allergy;
-        String favor;
-        String nonFavor;
+        List<String> allergy;
+        List<String> favor;
+        List<String> nonFavor;
         int good;
         int bad;
         int goodTime;
@@ -39,10 +46,11 @@ public class MemberDtos {
             this.id = member.getId();
             this.nickName = member.getNickName();
             this.sex = member.getSex();
+            this.memberProfileUrl = member.getProfileUrl();
             this.studentNum = member.getStudentNum();
-            this.allergy = member.getAllergy();
-            this.favor = member.getFavor();
-            this.nonFavor = member.getNonFavor();
+            this.allergy = Stream.of(member.getAllergy()).collect(Collectors.toList());
+            this.favor = Stream.of(member.getFavor()).collect(Collectors.toList());
+            this.nonFavor = Stream.of(member.getNonFavor()).collect(Collectors.toList());
             this.good = member.getGood();
             this.bad = member.getBad();
             this.goodTime = member.getGoodTime();
@@ -66,8 +74,17 @@ public class MemberDtos {
     @Data
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class MemberPutProfileDto {
-        String allergy;
-        String favor;
-        String nonFavor;
+        List<String> allergy;
+        List<String> favor;
+        List<String> nonFavor;
+    }
+
+    @Data
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class MemberProfileDto {
+        String nickName;
+        List<String> rating = new ArrayList<>();
+
+
     }
 }

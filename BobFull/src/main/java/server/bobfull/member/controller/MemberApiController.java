@@ -39,11 +39,21 @@ public class MemberApiController {
 
     @GetMapping(produces = "application/json;charset=UTF-8")
     public ApiResponse getMemberById(@RequestHeader("Authorization") Long memberId) {
-        if (memberService.isIdExist(memberId)) {
+        try {
             Member member = memberService.findByMemberId(memberId);
             return ApiResponse.success(new MemberResponseDto(member));
-        } else {
-            return ApiResponse.invaildToken(null);
+        } catch(NoSuchElementException e) {
+            return ApiResponse.invaildToken(false);
+        }
+    }
+
+    @GetMapping(value = "/nick",produces = "application/json;charset=UTF-8")
+    public ApiResponse getMemberByNickName(@RequestParam("nickName") String nickName) {
+        try {
+            Member member = memberService.findMemberByNick(nickName);
+            return ApiResponse.success(new MemberResponseDto(member));
+        } catch (NoSuchElementException e) {
+            return ApiResponse.success(false);
         }
     }
 

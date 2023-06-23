@@ -45,6 +45,11 @@ public class MemberService {
         return memberRepository.findByNickName(nickName).isPresent();
     }
 
+    public Member findMemberByNick(String nickName) {
+        return memberRepository.findByNickName(nickName)
+                .orElseThrow(() -> new NoSuchElementException("Member not found by nickName :" + nickName));
+    }
+
     public List<Member> getAll() {
         return memberRepository.findAll();
     }

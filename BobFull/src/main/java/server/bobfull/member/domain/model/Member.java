@@ -7,6 +7,8 @@ import server.bobfull.common.model.BaseTimeEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
+
 import server.bobfull.member.dto.MemberDtos;
 import server.bobfull.member.dto.MemberDtos.MemberPostRequestDto;
 import server.bobfull.member.dto.MemberDtos.MemberPostReviewDto;
@@ -80,9 +82,9 @@ public class Member extends BaseTimeEntity{
     }
 
     public Member changeProfile(MemberPutProfileDto memberPutProfileDto) {
-        this.allergy = memberPutProfileDto.getAllergy();
-        this.favor = memberPutProfileDto.getFavor();
-        this.nonFavor = memberPutProfileDto.getNonFavor();
+        this.allergy = memberPutProfileDto.getAllergy().toString();
+        this.favor = memberPutProfileDto.getFavor().toString();
+        this.nonFavor = memberPutProfileDto.getNonFavor().toString();
         return this;
     }
 
