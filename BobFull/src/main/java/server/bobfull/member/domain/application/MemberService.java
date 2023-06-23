@@ -89,7 +89,13 @@ public class MemberService {
                 member.getBadTaste(),
                 member.getFunny()
         };
-        String[] worlds = new String[] { "good", "bad", "goodTime", "badTime", "goodTaste", "badTaste", "funny"};
+        String[] worlds = new String[] { "좋아요",
+                                        "별로에요",
+                                        "시간 약속을 잘 지켜요",
+                                        "약속 시간에 늦었어요",
+                                        "음식 취향이 잘 맞아요",
+                                        "음식 취향이 안 맞아요",
+                                        "대화가 재밌었어요"};
         for(int i = 0; i < 7; i++) {
             if(values[i] != 0){
                 rating.add(worlds[i]);
