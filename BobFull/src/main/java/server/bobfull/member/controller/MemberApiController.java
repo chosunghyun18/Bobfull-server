@@ -68,11 +68,11 @@ public class MemberApiController {
     public ApiResponse putProfile(@RequestHeader("Authorization") Long memberId,
                                   @RequestBody MemberPutProfileDto memberPutProfileDto) {
         try {
-            memberService.replaceProfileByMemberId(memberId, memberPutProfileDto);
+            Member member = memberService.replaceProfileByMemberId(memberId, memberPutProfileDto);
+            return ApiResponse.success(new MemberResponseDto(member));
         }catch (NoSuchElementException e) {
             return ApiResponse.success(false);
         }
-        return ApiResponse.success(true);
     }
 
     @PutMapping(produces = "application/json;charset=UTF-8")

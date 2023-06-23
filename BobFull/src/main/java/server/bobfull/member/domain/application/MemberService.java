@@ -62,8 +62,8 @@ public class MemberService {
     @Transactional
     public void addReview(Long memberId, MemberPostReviewDto request) { findByMemberId(memberId).addReview(request); }
 
-    public void replaceProfileByMemberId(Long memberId, MemberPutProfileDto memberPutProfileDto) {
-        findByMemberId(memberId).changeProfile(memberPutProfileDto);
+    public Member replaceProfileByMemberId(Long memberId, MemberPutProfileDto memberPutProfileDto) {
+        return findByMemberId(memberId).changeProfile(memberPutProfileDto);
     }
 
     @Transactional
