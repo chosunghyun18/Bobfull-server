@@ -41,24 +41,32 @@ public class Member extends BaseTimeEntity{
     @Column(name = "non_favor")
     private String nonFavor;
 
+    @Column(name = "profile_url")
+    private String profileUrl = "url";
+
     @Column(name = "fcm_token")
     private String fcmToken = "";
 
+    @Column(name = "good")
+    private int good = 0;
 
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-//    private List<Gather> gathers = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-//    private List<RoomMember> roomMembers = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Feed> feeds = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<FeedLike> feedLikes = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Comment> comments = new ArrayList<>();
+    @Column(name = "bad")
+    private int bad = 0;
+
+    @Column(name = "good_time")
+    private int goodTime = 0;
+
+    @Column(name = "bad_time")
+    private int badTime = 0;
+
+    @Column(name = "good_taste")
+    private int goodTaste = 0;
+
+    @Column(name = "bad_taste")
+    private int badTaste = 0;
+
+    @Column(name = "funny")
+    private int funny = 0;
 
     @Builder
     private Member(String nickName,

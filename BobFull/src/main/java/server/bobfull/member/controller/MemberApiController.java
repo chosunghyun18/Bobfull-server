@@ -25,13 +25,14 @@ public class MemberApiController {
             return ApiResponse.success(false);
         }
         Member savedMember = memberService.saveMember(request);
-        return ApiResponse.success(new MemberResponse(savedMember));
+        return ApiResponse.success(new MemberResponseDto(savedMember));
     }
 
     @GetMapping(value = "/total", produces = "application/json;charset=UTF-8")
     public ApiResponse getAllMembers() {
         List<Member> findMembers = memberService.getAll();
-        List<MemberResponse> responseList = findMembers.stream().map(MemberResponse::new).collect(Collectors.toList());
+        List<MemberResponseDto> responseList =
+                findMembers.stream().map(MemberResponseDto::new).collect(Collectors.toList());
         return ApiResponse.success(responseList);
     }
 
@@ -39,7 +40,7 @@ public class MemberApiController {
     public ApiResponse getMemberById(@RequestHeader("Authorization") Long memberId) {
         if (memberService.isIdExist(memberId)) {
             Member member = memberService.findByMemberId(memberId);
-            return ApiResponse.success(new MemberResponse(member));
+            return ApiResponse.success(new MemberResponseDto(member));
         } else {
             return ApiResponse.invaildToken(null);
         }
