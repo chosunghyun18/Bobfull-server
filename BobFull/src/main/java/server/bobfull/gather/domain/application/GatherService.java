@@ -30,10 +30,18 @@ public class GatherService {
         return new GatherCreateResponse(gather);
     }
 
-    public List<GatherResponseDto> getAllGathersForList(Long memberId) {
+    public List<GatherResponseDto> getAllGathersForList(Long memberId,String bigLocation,String smallLocation) {
         memberService.findByMemberId(memberId);
         List<Gather> gathers = gatherRepository.findAll();
-        return gathers.stream().map(GatherResponseDto::new).collect(Collectors.toList());
+        List<Gather> filteredGathers = gathers.stream()
+            .filter(gather -> gather.getBigLocation().equals(bigLocation)).toList();
+
+        List<Gather> gathersResult = filteredGathers.stream()
+            .filter(gather -> gather.getSmallLocation().equals(smallLocation)).toList();
+
+        return gathersResult.stream()
+            .map(GatherResponseDto::new)
+            .collect(Collectors.toList());
     }
     public GatherDetailDto getGatherDetailByGatherId(Long memberId,Long gatherId) {
         memberService.findByMemberId(memberId);

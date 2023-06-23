@@ -50,7 +50,8 @@ public class GatherDtos {
 
         private Long memberId;
         private String memberNickName;
-        private String memberImageUrl;
+        private String memberProfileUrl;
+        private int memberStudentNum;
         private String bigLocation; // 교내 교외
 
         private String smallLocation; // 후생관 , 기숙사
@@ -66,7 +67,8 @@ public class GatherDtos {
             this.gatherId = gather.getId();
             this.memberId = gather.getMember().getId();
             this.memberNickName = gather.getMember().getNickName();
-            this.memberImageUrl = gather.getMember().getProfileUrl();
+            this.memberProfileUrl = gather.getMember().getProfileUrl();
+            this.memberStudentNum =gather.getMember().getStudentNum();
             this.bigLocation = gather.getBigLocation();
             this.smallLocation = gather.getSmallLocation();
             this.wishStore = gather.getWishStore();
@@ -101,7 +103,9 @@ public class GatherDtos {
 
         private Long memberId;
         private String memberNickName;
-        private String memberImageUrl;
+        private String memberProfileUrl;
+        private int memberStudentNum;
+
         private String bigLocation; // 교내 교외
 
         private String smallLocation; // 후생관 , 기숙사
@@ -117,7 +121,14 @@ public class GatherDtos {
             this.gatherId = gather.getId();
             this.memberId = gather.getMember().getId();
             this.memberNickName = gather.getMember().getNickName();
-            this.memberImageUrl = gather.getMember().getProfileUrl();
+            this.memberProfileUrl = gather.getMember().getProfileUrl();
+            this.memberStudentNum =gather.getMember().getStudentNum();
+            this.bigLocation = gather.getBigLocation();
+            this.smallLocation = gather.getSmallLocation();
+            this.wishStore = gather.getWishStore();
+            this.wishFood = gather.getWishFood();
+            this.meetTime = gather.getMeetTime();
+            this.maxPrice = gather.getMaxPrice();
             this.script = gather.getScript();
         }
     }
