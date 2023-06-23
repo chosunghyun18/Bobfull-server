@@ -30,6 +30,13 @@ public class MemberService {
                 .orElseThrow(() -> new NoSuchElementException("Member not found by memberId :" + memberId));
     }
 
+    public String findFcmTokenByMemberId(Long memberId){
+        return memberRepository
+                .findById(memberId)
+                .orElseThrow(() -> new NoSuchElementException("Member not found by memberId :" + memberId))
+                .getFcmToken();
+    }
+
     public boolean isNickRedundant(String nickName) {
         return memberRepository.findByNickName(nickName).isPresent();
     }
