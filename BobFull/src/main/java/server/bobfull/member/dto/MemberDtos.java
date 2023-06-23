@@ -116,7 +116,7 @@ public class MemberDtos {
         private String friendProfileUrl;
         public FriendProfileDto(Friend friend){
             this.friendId = friend.getId();
-            this.friendNickName= friend.getProfileUrl();
+            this.friendNickName= friend.getNickName();
             this.friendProfileUrl = friend.getProfileUrl();
         }
     }
