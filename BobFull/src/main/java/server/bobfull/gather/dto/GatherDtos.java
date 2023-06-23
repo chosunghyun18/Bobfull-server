@@ -15,6 +15,7 @@ public class GatherDtos {
         private String memberNickName;
         private String memberSex;
         private String memberImageUrl;
+        private int memberGood;
 
         private String bigLocation; // 교내 교외
 
@@ -33,6 +34,7 @@ public class GatherDtos {
             this.memberId = gather.getMember().getId();
             this.memberNickName = gather.getMember().getNickName();
             this.memberSex = gather.getMember().getSex();
+            this.memberGood = gather.getMember().getGood();
             this.memberImageUrl = gather.getMember().getProfileUrl();
             this.bigLocation = gather.getBigLocation();
             this.smallLocation = gather.getSmallLocation();
@@ -105,6 +107,7 @@ public class GatherDtos {
         private String memberNickName;
         private String memberProfileUrl;
         private int memberStudentNum;
+        private int memberGood;
 
         private String bigLocation; // 교내 교외
 
@@ -123,6 +126,7 @@ public class GatherDtos {
             this.memberNickName = gather.getMember().getNickName();
             this.memberProfileUrl = gather.getMember().getProfileUrl();
             this.memberStudentNum =gather.getMember().getStudentNum();
+            this.memberGood = gather.getMember().getGood();
             this.bigLocation = gather.getBigLocation();
             this.smallLocation = gather.getSmallLocation();
             this.wishStore = gather.getWishStore();
