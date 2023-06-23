@@ -60,6 +60,7 @@ public class GatherService {
         return new GatherDetailDto(gather);
     }
     // 밥약 참여하기
+    @Transactional
     public Boolean proposalJoin(Long memberId, Long gatherId) {
         Member friend = memberService.findByMemberId(memberId); // 요청자
         Gather gather = findByGatherId(gatherId);
@@ -72,7 +73,7 @@ public class GatherService {
         }
 
     }
-
+    @Transactional
     public Boolean proposalConfirm(Long memberId, Boolean confirm,Long confirmMemberId,Long friendId) {
         memberService.findByMemberId(memberId); // 승낙
         memberService.deleteFriendById(friendId);
