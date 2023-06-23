@@ -27,3 +27,12 @@ replay_pid*
 ### MAC OS ###
 *.DS_Store
 ~/*.DS_Store
+.idea/aws.xml
+.idea/Bobfull-server.iml
+.idea/compiler.xml
+.idea/gradle.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/modules/BobFull.main.iml
+.idea/vcs.xml

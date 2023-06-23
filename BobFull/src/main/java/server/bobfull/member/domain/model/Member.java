@@ -8,6 +8,7 @@ import server.bobfull.common.model.BaseTimeEntity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import server.bobfull.member.dto.MemberDtos;
+import server.bobfull.member.dto.MemberDtos.MemberPostRequestDto;
 
 
 @Setter
@@ -25,34 +26,24 @@ public class Member extends BaseTimeEntity{
     @Column(name = "nick_name", unique = true)
     private String nickName;
 
-    @Column(name = "real_name")
-    private String realName;
-
     @Column(name = "sex")
     private String sex;
 
-    @Column(name = "work_place")
-    private String workPlace;
+    @Column(name = "student_num")
+    private int studentNum;
 
-    @Column(name = "get_question")
-    @ColumnDefault("false")
-    private boolean getQeustion;
+    @Column(name = "allergy")
+    private String allergy;
 
-    @Column(name = "one_to_one")
-    @ColumnDefault("false")
-    private boolean oneToOne;
+    @Column(name = "favor")
+    private String favor;
 
-    @Column(name = "married")
-    private boolean married;
+    @Column(name = "non_favor")
+    private String nonFavor;
 
-    @Column(name = "varified")
-    @ColumnDefault("false")
-    private boolean varified;
+    @Column(name = "fcm_token")
+    private String fcmToken = "";
 
-    @Column(name = "profile_url")
-    private String profileUrl = "url";
-
-    private String career; //only Eng.
 
 //    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
 //    private List<Gather> gathers = new ArrayList<>();
@@ -70,52 +61,44 @@ public class Member extends BaseTimeEntity{
 //    private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    private Member(Long id,
-                   String nickName,
-                   String realName,
+    private Member(String nickName,
                    String sex,
-                   String workPlace,
-                   boolean getQeustion,
-                   boolean oneToOne,
-                   boolean married,
-                   boolean varified,
-                   String career){
-        this.id = id;
+                   int studentNum,
+                   String allergy,
+                   String favor,
+                   String nonFavor){
         this.nickName = nickName;
-        this.realName = realName;
         this.sex = sex;
-        this.workPlace = workPlace;
-        this.getQeustion = getQeustion;
-        this.oneToOne = oneToOne;
-        this.married = married;
-        this.varified = varified;
-        this.career = career;
+        this.studentNum = studentNum;
+        this.allergy = allergy;
+        this.favor = favor;
+        this.nonFavor = nonFavor;
     }
 
     public static Member create(String nickName,
-                                String realName,
                                 String sex,
-                                String workPlace,
-                                boolean married,
-                                String career) {
+                                int studentNum,
+                                String allergy,
+                                String favor,
+                                String nonFavor) {
         return Member.builder()
                 .nickName(nickName)
-                .realName(realName)
                 .sex(sex)
-                .workPlace(workPlace)
-                .married(married)
-                .career(career)
+                .studentNum(studentNum)
+                .allergy(allergy)
+                .favor(favor)
+                .nonFavor(nonFavor)
                 .build();
     }
 
-    public static Member create(MemberDtos.MemberPostRequestDto memberPostRequestDto) {
+    public static Member create(MemberPostRequestDto memberPostRequestDto) {
         return Member.builder()
                 .nickName(memberPostRequestDto.getNickName())
-                .realName(memberPostRequestDto.getRealName())
                 .sex(memberPostRequestDto.getSex())
-                .workPlace(memberPostRequestDto.getWorkPlace())
-                .married(memberPostRequestDto.isMarried())
-                .career(memberPostRequestDto.getCareer())
+                .studentNum(memberPostRequestDto.getStudentNum())
+                .allergy(memberPostRequestDto.getAllergy())
+                .favor(memberPostRequestDto.getFavor())
+                .nonFavor(memberPostRequestDto.getNonFavor())
                 .build();
     }
 }

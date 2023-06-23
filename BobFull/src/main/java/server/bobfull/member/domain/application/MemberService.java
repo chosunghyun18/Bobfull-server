@@ -20,17 +20,18 @@ public class MemberService {
 
     @Transactional
     public Member saveMember(MemberPostRequestDto memberPostRequestDto){
-        return memberRepository.saveMember(memberPostRequestDto)
-                .orElseThrow(() -> new RuntimeException("Member not saved"));
+        Member member = Member.create(memberPostRequestDto);
+        memberRepository.save(member);
+        return member;
     }
 
     public Member findByMemberId(Long memberId){
-        return memberRepository.findByMemberId(memberId)
+        return memberRepository.findById(memberId)
                 .orElseThrow(() -> new NoSuchElementException("Member not found by memberId :" + memberId));
     }
 
     public boolean isNickRedundant(String nickName) {
-        return memberRepository.findByNick(nickName).isPresent();
+        return memberRepository.findByNickName(nickName).isPresent();
     }
 
     public List<Member> getAll() {
@@ -40,22 +41,10 @@ public class MemberService {
     @Transactional
     public void deleteMember(Long id) {
         Member member = findByMemberId(id);
-        memberRepository.deleteMember(member);
-    }
-
-    @Transactional
-    public Member updateOneToOne(Long id, boolean OneToOne) {
-        Member member = findByMemberId(id);
-        return memberRepository.updateMemberOneToOne(member, OneToOne);
-    }
-
-    @Transactional
-    public Member updateGetQuestion(Long id, boolean GetQuestion) {
-        Member member = findByMemberId(id);
-        return memberRepository.updateMemberGetQuestion(member, GetQuestion);
+        memberRepository.deleteById(member.getId());
     }
 
     public boolean isIdExist(Long memberId) {
-        return memberRepository.findByMemberId(memberId).isPresent();
+        return memberRepository.findById(memberId).isPresent();
     }
 }
