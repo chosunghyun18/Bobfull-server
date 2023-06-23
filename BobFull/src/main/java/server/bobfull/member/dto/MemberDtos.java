@@ -87,13 +87,19 @@ public class MemberDtos {
         int studentNum;
         String sex;
         List<String> rating;
+        List<String> allergy;
         List<String> favor;
+        List<String> nonFavor;
         public MemberProfileDto(Member member, List<String> rating) {
             this.nickName = member.getNickName();
             this.studentNum = member.getStudentNum();
             this.sex = member.getSex();
             this.rating = rating;
+            this.allergy = Arrays.asList(member.getAllergy()
+                    .replaceAll("[\\[\\]]", "").split(", "));
             this.favor = Arrays.asList(member.getFavor()
+                    .replaceAll("[\\[\\]]", "").split(", "));
+            this.nonFavor = Arrays.asList(member.getNonFavor()
                     .replaceAll("[\\[\\]]", "").split(", "));
         }
     }
