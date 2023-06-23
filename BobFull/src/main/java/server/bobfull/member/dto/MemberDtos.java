@@ -83,18 +83,22 @@ public class MemberDtos {
     @Data
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class MemberProfileDto {
+        Long memberId;
         String nickName;
         int studentNum;
         String sex;
+        String memberProfileUrl;
         List<String> rating;
         List<String> allergy;
         List<String> favor;
         List<String> nonFavor;
         public MemberProfileDto(Member member, List<String> rating) {
+            this.memberId = member.getId();
             this.nickName = member.getNickName();
             this.studentNum = member.getStudentNum();
             this.sex = member.getSex();
             this.rating = rating;
+            this.memberProfileUrl = member.getProfileUrl();
             this.allergy = Arrays.asList(member.getAllergy()
                     .replaceAll("[\\[\\]]", "").split(", "));
             this.favor = Arrays.asList(member.getFavor()
