@@ -15,9 +15,6 @@ public class MemberDtos {
         String nickName;
         String sex;
         int studentNum;
-        String allergy;
-        String favor;
-        String nonFavor;
     }
 
     @Data
@@ -56,7 +53,7 @@ public class MemberDtos {
 
     @Data
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public class MemberPostReviewDto {
+    public static class MemberPostReviewDto {
         int good;
         int bad;
         int goodTime;
@@ -64,5 +61,13 @@ public class MemberDtos {
         int goodTaste;
         int badTaste;
         int funny;
+    }
+
+    @Data
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class MemberPutProfileDto {
+        String allergy;
+        String favor;
+        String nonFavor;
     }
 }

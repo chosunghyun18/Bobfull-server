@@ -11,6 +11,7 @@ import server.bobfull.member.dto.MemberDtos.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -60,6 +61,17 @@ public class MemberApiController {
     public ApiResponse postReview(@RequestHeader("Authorization") Long memberId,
                                   @RequestBody MemberPostReviewDto request) {
         memberService.addReview(memberId, request);
+        return ApiResponse.success(true);
+    }
+
+    @PutMapping(value = "/profile", produces = "application/json;charset=UTF-8")
+    public ApiResponse putProfile(@RequestHeader("Authorization") Long memberId,
+                                  @RequestBody MemberPutProfileDto memberPutProfileDto) {
+        try {
+            memberService.replaceProfileByMemberId(memberId, memberPutProfileDto);
+        }catch (NoSuchElementException e) {
+            return ApiResponse.success(false);
+        }
         return ApiResponse.success(true);
     }
 }
