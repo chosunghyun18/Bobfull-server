@@ -24,21 +24,21 @@ public class MemberDtos {
     @Data
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class MemberResponseDto {
-        Long id;
-        String nickName;
-        String sex;
-        String memberProfileUrl;
-        int studentNum;
-        List<String> allergy;
-        List<String> favor;
-        List<String> nonFavor;
-        int good;
-        int bad;
-        int goodTime;
-        int badTime;
-        int goodTaste;
-        int badTaste;
-        int funny;
+        private Long id;
+        private String nickName;
+        private String sex;
+        private String memberProfileUrl;
+        private int studentNum;
+        private List<String> allergy;
+        private List<String> favor;
+        private List<String> nonFavor;
+        private int good;
+        private int bad;
+        private int goodTime;
+        private int badTime;
+        private int goodTaste;
+        private int badTaste;
+        private int funny;
 
         public MemberResponseDto(Member member) {
             this.id = member.getId();
@@ -63,35 +63,35 @@ public class MemberDtos {
     @Data
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class MemberPostReviewDto {
-        int good;
-        int bad;
-        int goodTime;
-        int badTime;
-        int goodTaste;
-        int badTaste;
-        int funny;
+        private int good;
+        private int bad;
+        private int goodTime;
+        private int badTime;
+        private int goodTaste;
+        private int badTaste;
+        private int funny;
     }
 
     @Data
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class MemberPutProfileDto {
-        List<String> allergy;
-        List<String> favor;
-        List<String> nonFavor;
+        private List<String> allergy;
+        private List<String> favor;
+        private List<String> nonFavor;
     }
 
     @Data
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class MemberProfileDto {
-        Long memberId;
-        String nickName;
-        int studentNum;
-        String sex;
-        String memberProfileUrl;
-        List<String> rating;
-        List<String> allergy;
-        List<String> favor;
-        List<String> nonFavor;
+        private Long memberId;
+        private String nickName;
+        private int studentNum;
+        private String sex;
+        private String memberProfileUrl;
+        private List<String> rating;
+        private List<String> allergy;
+        private List<String> favor;
+        private List<String> nonFavor;
         public MemberProfileDto(Member member, List<String> rating) {
             this.memberId = member.getId();
             this.nickName = member.getNickName();
