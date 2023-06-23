@@ -7,6 +7,7 @@ import server.bobfull.member.domain.model.Member;
 import server.bobfull.member.dto.MemberDtos;
 import server.bobfull.member.dto.MemberDtos.MemberPostRequestDto;
 import server.bobfull.member.dto.MemberDtos.MemberPostReviewDto;
+import server.bobfull.member.dto.MemberDtos.MemberPutProfileDto;
 import server.bobfull.member.infrastructure.MemberRepository;
 
 import java.util.List;
@@ -60,4 +61,8 @@ public class MemberService {
 
     @Transactional
     public void addReview(Long memberId, MemberPostReviewDto request) { findByMemberId(memberId).addReview(request); }
+
+    public void replaceProfileByMemberId(Long memberId, MemberPutProfileDto memberPutProfileDto) {
+        findByMemberId(memberId).changeProfile(memberPutProfileDto);
+    }
 }

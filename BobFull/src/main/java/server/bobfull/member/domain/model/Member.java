@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import server.bobfull.member.dto.MemberDtos;
 import server.bobfull.member.dto.MemberDtos.MemberPostRequestDto;
 import server.bobfull.member.dto.MemberDtos.MemberPostReviewDto;
+import server.bobfull.member.dto.MemberDtos.MemberPutProfileDto;
 
 
 @Setter
@@ -34,13 +35,13 @@ public class Member extends BaseTimeEntity{
     private int studentNum;
 
     @Column(name = "allergy")
-    private String allergy;
+    private String allergy = "";
 
     @Column(name = "favor")
-    private String favor;
+    private String favor = "";
 
     @Column(name = "non_favor")
-    private String nonFavor;
+    private String nonFavor = "";
 
     @Column(name = "profile_url")
     private String profileUrl = "url";
@@ -72,32 +73,16 @@ public class Member extends BaseTimeEntity{
     @Builder
     private Member(String nickName,
                    String sex,
-                   int studentNum,
-                   String allergy,
-                   String favor,
-                   String nonFavor){
+                   int studentNum){
         this.nickName = nickName;
         this.sex = sex;
         this.studentNum = studentNum;
-        this.allergy = allergy;
-        this.favor = favor;
-        this.nonFavor = nonFavor;
     }
 
-    public static Member create(String nickName,
-                                String sex,
-                                int studentNum,
-                                String allergy,
-                                String favor,
-                                String nonFavor) {
-        return Member.builder()
-                .nickName(nickName)
-                .sex(sex)
-                .studentNum(studentNum)
-                .allergy(allergy)
-                .favor(favor)
-                .nonFavor(nonFavor)
-                .build();
+    public void changeProfile(MemberPutProfileDto memberPutProfileDto) {
+        this.allergy = memberPutProfileDto.getAllergy();
+        this.favor = memberPutProfileDto.getFavor();
+        this.nonFavor = memberPutProfileDto.getNonFavor();
     }
 
     public static Member create(MemberPostRequestDto memberPostRequestDto) {
@@ -105,9 +90,6 @@ public class Member extends BaseTimeEntity{
                 .nickName(memberPostRequestDto.getNickName())
                 .sex(memberPostRequestDto.getSex())
                 .studentNum(memberPostRequestDto.getStudentNum())
-                .allergy(memberPostRequestDto.getAllergy())
-                .favor(memberPostRequestDto.getFavor())
-                .nonFavor(memberPostRequestDto.getNonFavor())
                 .build();
     }
 
