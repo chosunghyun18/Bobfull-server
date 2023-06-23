@@ -13,78 +13,32 @@ public class MemberDtos {
     @NoArgsConstructor
     public static class MemberPostRequestDto {
         String nickName;
-        String realName;
         String sex;
-        String workPlace;
-        boolean married;
-        String career;
+        int studentNum;
+        String allergy;
+        String favor;
+        String nonFavor;
     }
 
     @Data
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class MemberResponse {
-        Long memberId;
+        Long id;
         String nickName;
-        String realName;
         String sex;
-        String workPlace;
-        boolean married;
-        String career;
-        String profileUrl;
+        int studentNum;
+        String allergy;
+        String favor;
+        String nonFavor;
 
         public MemberResponse(Member member) {
-            this.memberId = member.getId();
-            this.nickName = member.getNickName();
-            this.realName = member.getRealName();
-            this.sex = member.getSex();
-            this.workPlace = member.getWorkPlace();
-            this.married = member.isMarried();
-            this.career = member.getCareer();
-            if(member.getProfileUrl().isEmpty()){ this.profileUrl = "url"; }
-            else { this.profileUrl = member.getProfileUrl(); }
+            this.id = id;
+            this.nickName = nickName;
+            this.sex = sex;
+            this.studentNum = studentNum;
+            this.allergy = allergy;
+            this.favor = favor;
+            this.nonFavor = nonFavor;
         }
     }
-
-    @Data
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class MemberSelfResponse {
-        Long memberId;
-        String nickName;
-        String realName;
-        String sex;
-        String workPlace;
-        boolean getQeustion;
-        boolean oneToOne;
-        boolean varified;
-        boolean married;
-        String career;
-        String profileUrl;
-
-        public MemberSelfResponse(Member member) {
-            this.memberId = member.getId();
-            this.nickName = member.getNickName();
-            this.realName = member.getRealName();
-            this.sex = member.getSex();
-            this.workPlace = member.getWorkPlace();
-            this.getQeustion = member.isGetQeustion();
-            this.oneToOne = member.isOneToOne();
-            this.varified = member.isVarified();
-            this.married = member.isMarried();
-            this.career = member.getCareer();
-            if(member.getProfileUrl().isEmpty()){ this.profileUrl = "url"; }
-            else { this.profileUrl = member.getProfileUrl(); }
-        }
-    }
-
-    @Data
-    @NoArgsConstructor
-    public static class MemberPutOneToOneDto {
-        Long memberId;
-        boolean oneToOne; }
-
-    @Data
-    @NoArgsConstructor
-    public static class MemberPutGetQeustionDto {
-        Long memberId;
-        boolean getQeustion; }
 }
