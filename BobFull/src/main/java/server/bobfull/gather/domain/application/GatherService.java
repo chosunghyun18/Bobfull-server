@@ -2,6 +2,7 @@ package server.bobfull.gather.domain.application;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -53,7 +54,11 @@ public class GatherService {
         Gather gather = findByGatherId(gatherId);
         return new GatherDetailDto(gather);
     }
-
+    public GatherDetailDto getGatherDetailByMemberId(Long memberId) {
+        Member member = memberService.findByMemberId(memberId);
+        Gather gather = gatherRepository.findByMember(member);
+        return new GatherDetailDto(gather);
+    }
     // 밥약 참여하기
     public Boolean proposalJoin(Long memberId, Long gatherId) {
         memberService.findByMemberId(memberId); // 요청자
@@ -76,5 +81,15 @@ public class GatherService {
         }catch (IOException e) {
             return false;
         }
+    }
+    @Transactional
+    public Boolean deleteGatherByGatherId(Long memberId, Long gatherId) {
+        Member member = memberService.findByMemberId(memberId);
+        Gather gather = findByGatherId(gatherId);
+        if(Objects.equals(member.getId(), gather.getMember().getId())){
+            gatherRepository.delete(gather);
+            return true;
+        }
+        else return false;
     }
 }
