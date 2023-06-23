@@ -20,11 +20,14 @@ public class GatherApiController {
     private final GatherService gatherService;
 
     @PostMapping(produces = "application/json;charset=UTF-8")
-    public ApiResponse<GatherCreateResponse> createGather(@RequestHeader("Authorization") Long memberId,@RequestBody GatherCreateRequestDto requestDto){
+    public ApiResponse<GatherCreateResponse> createGather(@RequestHeader("Authorization") Long memberId,
+                                                        @RequestBody GatherCreateRequestDto requestDto) {
         return ApiResponse.success(gatherService.createGather(memberId,requestDto));
     }
     @GetMapping(value = "/all",produces = "application/json;charset=UTF-8")
-    public ApiResponse<List<GatherResponseDto>> getGathersForList(@RequestHeader("Authorization") Long memberId,@RequestParam("bigLocation") String bigLocation,@RequestParam("smallLocation") String smallLocation) {
+    public ApiResponse<List<GatherResponseDto>> getGathersForList(@RequestHeader("Authorization") Long memberId,
+                                                                @RequestParam("bigLocation") String bigLocation,
+                                                                @RequestParam("smallLocation") String smallLocation) {
         return ApiResponse.success(gatherService.getAllGathersForList(memberId,bigLocation,smallLocation));
     }
 
@@ -32,10 +35,16 @@ public class GatherApiController {
     public ApiResponse<GatherDetailDto> getGatherDetail(@RequestHeader("Authorization") Long memberId,@RequestParam("gatherId") Long gatherId) {
         return ApiResponse.success(gatherService.getGatherDetailByGatherId(memberId,gatherId));
     }
-
-//    @GetMapping(value = "/search",produces = "application/json;charset=UTF-8")
-//    public ApiResponse<List<GatherResponseDto>> getGathersBySearchForList(@RequestHeader("Authorization") Long memberId, @RequestParam("searchText") String searchText) {
-//        return ApiResponse.success(gatherService.getAllGathersBySearchForList(memberId,searchText));
-//    }
+    @GetMapping(value = "/proposal/join",produces = "application/json;charset=UTF-8")
+    public ApiResponse<Boolean> checkJoinGather(@RequestHeader("Authorization") Long memberId,
+                                                @RequestParam("gatherId") Long gatherId) {
+        return ApiResponse.success(gatherService.proposalJoin(memberId,gatherId));
+    }
+    @GetMapping(value = "/proposal/confirm",produces = "application/json;charset=UTF-8")
+    public ApiResponse<Boolean> checkConfirmGatherJoin(@RequestHeader("Authorization") Long memberId,
+                                                      @RequestParam("confirmMemberId") Long confirmMemberId, // 상대방의 memberId
+                                                      @RequestParam("confirm") Boolean confirm) {   // 승낙 true
+        return ApiResponse.success(gatherService.proposalConfirm(memberId,confirm,confirmMemberId));
+    }
 
 }

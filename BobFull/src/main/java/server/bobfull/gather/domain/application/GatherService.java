@@ -1,5 +1,6 @@
 package server.bobfull.gather.domain.application;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
@@ -9,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import server.bobfull.gather.domain.model.Gather;
 import server.bobfull.gather.dto.GatherDtos.*;
 import server.bobfull.gather.infrastructure.GatherRepository;
+import server.bobfull.infra.google.fcm.FCMService;
 import server.bobfull.member.domain.application.MemberService;
+import server.bobfull.member.domain.model.Member;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +21,7 @@ public class GatherService {
 
     private final GatherRepository gatherRepository;
     private final MemberService memberService;
+    private final FCMService fcmService;
 
     public Gather findByGatherId(Long gatherId) {
         return gatherRepository.findById(gatherId)
@@ -49,4 +53,27 @@ public class GatherService {
         return new GatherDetailDto(gather);
     }
 
+    // 밥약 참여하기
+    public Boolean proposalJoin(Long memberId, Long gatherId) {
+        memberService.findByMemberId(memberId); // 요청자
+        Gather gather = findByGatherId(gatherId);
+        try {
+            fcmService.sendMessageTo(gather.getMember().getFcmToken(), "JOIN", memberId.toString());
+            return true;
+        }catch (IOException e) {
+            return false;
+        }
+
+    }
+
+    public Boolean proposalConfirm(Long memberId, Boolean confirm,Long confirmMemberId) {
+        memberService.findByMemberId(memberId); // 승낙
+        Member requestedMember =memberService.findByMemberId(confirmMemberId);
+        try {
+        fcmService.sendMessageTo(requestedMember.getFcmToken(),"RESULT",confirm.toString());
+            return true;
+        }catch (IOException e) {
+            return false;
+        }
+    }
 }
