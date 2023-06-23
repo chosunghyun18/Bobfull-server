@@ -1,14 +1,18 @@
 package server.bobfull.member.domain.application;
 
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import server.bobfull.member.domain.model.Friend;
 import server.bobfull.member.domain.model.Member;
 import server.bobfull.member.dto.MemberDtos;
+import server.bobfull.member.dto.MemberDtos.FriendProfileDto;
 import server.bobfull.member.dto.MemberDtos.MemberPostRequestDto;
 import server.bobfull.member.dto.MemberDtos.MemberPostReviewDto;
 import server.bobfull.member.dto.MemberDtos.MemberProfileDto;
 import server.bobfull.member.dto.MemberDtos.MemberPutProfileDto;
+import server.bobfull.member.infrastructure.FriendRepository;
 import server.bobfull.member.infrastructure.MemberRepository;
 
 import java.util.ArrayList;
@@ -23,6 +27,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final FriendRepository friendRepository;
 
     @Transactional
     public Member saveMember(MemberPostRequestDto memberPostRequestDto){
@@ -30,7 +35,20 @@ public class MemberService {
         memberRepository.save(member);
         return member;
     }
-
+    @Transactional
+    public void saveFriend(Member owner,String nickName,String url) {
+        Friend friend = new Friend();
+        friend.setMember(owner);
+        friend.setNickName(nickName);
+        friend.setProfileUrl(url);
+        friendRepository.save(friend);
+    }
+    @Transactional
+    public void deleteFriendById(Long friendId) {
+        Friend friend = friendRepository.findById(friendId)
+            .orElseThrow(() -> new NoSuchElementException("Member not found by memberId :" + friendId));
+        friendRepository.delete(friend);
+    }
     public Member findByMemberId(Long memberId){
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new NoSuchElementException("Member not found by memberId :" + memberId));
@@ -103,5 +121,11 @@ public class MemberService {
         }
 
         return new MemberProfileDto(member, rating);
+    }
+
+    public List<FriendProfileDto> findFriendsByMemberId(Long memberId) {
+        Member member = findByMemberId(memberId);
+        List<Friend> friends = friendRepository.findAllByMember(member);
+        return friends.stream().map(FriendProfileDto::new).collect(Collectors.toList());
     }
 }

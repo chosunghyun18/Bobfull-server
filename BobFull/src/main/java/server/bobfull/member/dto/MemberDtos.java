@@ -3,6 +3,7 @@ package server.bobfull.member.dto;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import server.bobfull.member.domain.model.Friend;
 import server.bobfull.member.domain.model.Member;
 
 import java.util.ArrayList;
@@ -107,4 +108,21 @@ public class MemberDtos {
                     .replaceAll("[\\[\\]]", "").split(", "));
         }
     }
+    @Data
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class FriendProfileDto {
+        private Long friendId;
+        private String friendNickName;
+        private String friendProfileUrl;
+        public FriendProfileDto(Friend friend){
+            this.friendId = friend.getId();
+            this.friendNickName= friend.getProfileUrl();
+            this.friendProfileUrl = friend.getProfileUrl();
+        }
+    }
+
 }
+
+
+
+

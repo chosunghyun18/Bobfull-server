@@ -72,6 +72,9 @@ public class Member extends BaseTimeEntity{
     @Column(name = "funny")
     private int funny = 0;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Friend> friends = new ArrayList<>();
+
     @Builder
     private Member(String nickName,
                    String sex,
