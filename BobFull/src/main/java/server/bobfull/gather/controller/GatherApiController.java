@@ -24,8 +24,8 @@ public class GatherApiController {
         return ApiResponse.success(gatherService.createGather(memberId,requestDto));
     }
     @GetMapping(value = "/all",produces = "application/json;charset=UTF-8")
-    public ApiResponse<List<GatherResponseDto>> getGathersForList(@RequestHeader("Authorization") Long memberId) {
-        return ApiResponse.success(gatherService.getAllGathersForList(memberId));
+    public ApiResponse<List<GatherResponseDto>> getGathersForList(@RequestHeader("Authorization") Long memberId,@RequestParam("bigLocation") String bigLocation,@RequestParam("smallLocation") String smallLocation) {
+        return ApiResponse.success(gatherService.getAllGathersForList(memberId,bigLocation,smallLocation));
     }
 
     @GetMapping(produces = "application/json;charset=UTF-8")
