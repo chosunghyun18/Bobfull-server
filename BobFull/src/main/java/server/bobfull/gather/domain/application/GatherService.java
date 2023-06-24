@@ -66,7 +66,7 @@ public class GatherService {
         Gather gather = findByGatherId(gatherId);
         memberService.saveFriend(gather.getMember(),friend.getNickName(),friend.getProfileUrl());
         try {
-            fcmService.sendMessageTo(gather.getMember().getFcmToken(), "JOIN", memberId.toString());
+            fcmService.sendMessageTo(gather.getMember().getFcmToken(), "JOIN", friend.getNickName());
             return true;
         }catch (IOException e) {
             return false;
@@ -79,7 +79,7 @@ public class GatherService {
         memberService.deleteFriendById(friendId);
         Member requestedMember =memberService.findByMemberId(confirmMemberId);
         try {
-        fcmService.sendMessageTo(requestedMember.getFcmToken(),"RESULT",confirm.toString());
+            fcmService.sendMessageTo(requestedMember.getFcmToken(),"RESULT",confirm.toString());
             return true;
         }catch (IOException e) {
             return false;
