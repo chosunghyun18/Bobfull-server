@@ -24,3 +24,16 @@
 - infra :
   - aws s3 : 폴더별 image handle , CRUD
   - google fcm : push alarm handle
+
+### Back-end Stack
+
+---
+
+| Category  | stack                                     |
+| --------- | ----------------------------------------- |
+| Language  | Java 17                                   |
+| Framework | Spring Boot 2.7.7                         |
+| ORM       | JPA/Hibernate                             |
+| Database  | MySQL 8.0.                                |
+| Build     | Gradle 7.6.1                              |
+| Infra     | AWS EC2 ,S3 ,Rds , FireBase Cloud Message |
