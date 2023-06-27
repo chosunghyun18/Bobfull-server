@@ -11,12 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import server.bobfull.gather.dto.GatherDtos.GatherCreateRequestDto;
 import server.bobfull.member.domain.model.Member;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
 public class Gather {

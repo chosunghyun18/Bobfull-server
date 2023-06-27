@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class FCMService {
 
-    private String API_URL = "https://fcm.googleapis.com/v1/projects/bobfull-5df13/messages:send";
+    private final String APIURL = "https://fcm.googleapis.com/v1/projects/bobfull-5df13/messages:send";
     private final ObjectMapper objectMapper;
 
     public void sendMessageTo(String targetToken, String title, String body) throws IOException {
@@ -30,7 +30,7 @@ public class FCMService {
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = RequestBody.create(message, MediaType.get("application/json; charset=utf-8"));
         Request request = new Request.Builder()
-            .url(API_URL)
+            .url(APIURL)
             .post(requestBody)
             .addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + getAccessToken())
             .addHeader(HttpHeaders.CONTENT_TYPE, "application/json; UTF-8")
